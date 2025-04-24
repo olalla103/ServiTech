@@ -1,8 +1,8 @@
-# models/tiempo_reparacion.py
+# models/tiempos.py
 
 from sqlalchemy import Column, Integer, DateTime, String, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from fecha_utils import datetime
 from db.db import Base
 
 
@@ -17,7 +17,6 @@ class TiempoReparacion(Base):
     reanudacion = Column(DateTime, nullable=True)
     fin = Column(DateTime, nullable=True)
     motivo_pausa = Column(String(255), nullable=True)
-
 
     # Relación con la incidencia
     incidencia = relationship("Incidencia", back_populates="tiempos")

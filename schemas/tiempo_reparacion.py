@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
+from fecha_utils import datetime
 
 
 class TiempoReparacionCreate(BaseModel):

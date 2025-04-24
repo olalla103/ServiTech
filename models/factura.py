@@ -5,10 +5,10 @@
 #       Añadir extras (trayectos,productos)
 #       Generar factura de una reparación
 
-from sqlalchemy import Column, String, Float, ForeignKey, Integer, Table, DateTime
+from sqlalchemy import Column, String, Float, ForeignKey, Integer, Table, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from db.db import Base
-from datetime import datetime
+from fecha_utils import datetime
 
 # Si hay relación muchos a muchos entre facturas y productos:
 factura_producto = Table(
@@ -30,6 +30,7 @@ class Factura(Base):
     tiempo_total = Column(Integer, nullable=True)  # Tiempo total en minutos
     cantidad_adicional = Column(Float, default=0.0)
     cantidad_total = Column(Float, default=0.0)
+    confirmada = Column(Boolean, default=False)
 
     # Relación con productos (muchos a muchos) y
     productos = relationship("Producto", secondary=factura_producto, back_populates="facturas")

@@ -1,17 +1,16 @@
-# routers/tecnicos.py
-
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db.db import SessionLocal
 from models.tecnico import Tecnico
 from schemas.tecnico import TecnicoCreate, TecnicoOut
+from typing import List
 
 router = APIRouter(
     prefix="/tecnicos",
     tags=["Técnicos"]
 )
 
-# Obtener la sesión de base de datos
+
 def get_db():
     db = SessionLocal()
     try:
@@ -19,7 +18,7 @@ def get_db():
     finally:
         db.close()
 
-# Crear técnico
+
 @router.post("/", response_model=TecnicoOut)
 def crear_tecnico(data: TecnicoCreate, db: Session = Depends(get_db)):
     nuevo_tecnico = Tecnico(**data.dict())
@@ -28,7 +27,15 @@ def crear_tecnico(data: TecnicoCreate, db: Session = Depends(get_db)):
     db.refresh(nuevo_tecnico)
     return nuevo_tecnico
 
-# Listar técnicos
-@router.get("/", response_model=list[TecnicoOut])
+
+@router.get("/", response_model=List[TecnicoOut])
 def listar_tecnicos(db: Session = Depends(get_db)):
     return db.query(Tecnico).all()
+
+
+@router.get("/{id}", response_model=TecnicoOut)
+def obtener_tecnico(id: int, db: Session = Depends(get_db)):
+    tecnico = db.query(Tecnico).filter_by(id=id).first()
+    if not tecnico:
+        raise HTTPException(status_code=404, detail="Técnico no encontrado")
+    return tecnico

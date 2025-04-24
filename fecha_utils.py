@@ -1,14 +1,14 @@
 import sys
 from abc import abstractmethod
-from datetime import datetime, timedelta, timezone, date, time
+from fecha_utils import datetime, timedelta, timezone, date, time
 from time import struct_time
 from typing import ClassVar, Final, NamedTuple, NoReturn, SupportsIndex, final, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
-    __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
+    __all__ = ("date", "fecha_utils.py", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
 elif sys.version_info >= (3, 9):
-    __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
+    __all__ = ("date", "fecha_utils.py", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
 
 MINYEAR: Final = 1
 MAXYEAR: Final = 9999

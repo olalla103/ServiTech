@@ -25,5 +25,9 @@ class FacturaOut(BaseModel):
     cantidad_total: float
     productos: List[ProductoOut] = []  # objetos completos de productos
 
+
+class FacturaConfirm(BaseModel):
+    confirmada: bool
+
     class Config:
         orm_mode = True
