@@ -15,7 +15,7 @@ class Usuario:
     DNI = Column(String(10), unique=True, nullable=False)
     nombre = Column(String(100), nullable=False)
     apellido1 = Column(String(100), nullable=False)
-    apellido2 = Column(String(100))
+    apellido2 = Column(String(100), nullable=True)
     telefono = Column(String(20))
     email = Column(String(150), unique=True, nullable=False)
     nombreUsuario = Column(String(50), unique=True, nullable=False)

@@ -5,7 +5,7 @@
 #       Añadir extras (trayectos,productos)
 #       Generar factura de una reparación
 
-from sqlalchemy import Column, String, DateTime, Float, ForeignKey, Integer, Table
+from sqlalchemy import Column, String, Float, ForeignKey, Integer, Table, DateTime
 from sqlalchemy.orm import relationship
 from db.db import Base
 from datetime import datetime
@@ -23,12 +23,15 @@ class Factura(Base):
     __tablename__ = "facturas"
 
     id = Column(Integer, primary_key=True, index=True)
-    id_incidencia = Column(String(100), nullable=False)  # o Integer si es clave foránea
-    id_tecnico = Column(String(100), nullable=False)
-    id_cliente = Column(String(100), nullable=False)
-    fecha_emision = Column(DateTime, default=datetime.utcnow)
+    incidencia_id = Column(Integer, ForeignKey("incidencias.id"), nullable=False, unique=True)
+    id_tecnico = Column(String(100), nullable=False)  # Firebase UID
+    id_cliente = Column(String(100), nullable=False)  # Firebase UID
+    fecha_emision = Column(DateTime, default=datetime.utcnow, nullable=False)
+    tiempo_total = Column(Integer, nullable=True)  # Tiempo total en minutos
     cantidad_adicional = Column(Float, default=0.0)
     cantidad_total = Column(Float, default=0.0)
 
-    # Relación con productos (muchos a muchos)
+    # Relación con productos (muchos a muchos) y
     productos = relationship("Producto", secondary=factura_producto, back_populates="facturas")
+    # Relación con la incidencia (1:1)
+    incidencia = relationship("Incidencia", back_populates="factura")

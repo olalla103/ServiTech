@@ -8,7 +8,7 @@
 #       Cancelar reparación
 #       Historial reparaciones del técnico
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from db.db import Base
 from models.usuario import Usuario
 
@@ -18,4 +18,6 @@ class Tecnico(Base, Usuario):
 
     id = Column(Integer, primary_key=True, index=True)
     especialidad = Column(String(100))
-    empresa = Column(String(100))
+    empresa = Column(String(100),nullable=True)
+    numero_seguridad_social = Column(String(50),nullable=False)
+    autonomo = Column(Boolean, default=False)
