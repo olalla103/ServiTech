@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 
 from db.db import Base
-from usuario import Usuario
+from models.usuario import Usuario
 
 
 class Cliente(Base, Usuario):
